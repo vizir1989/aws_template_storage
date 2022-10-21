@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TEMPLATE_LOCATION: ./
-      DEPLOY_BUCKET: vizir-deploy-bucket
+      DEPLOY_BUCKET: acg-deploy-bucket
       AWS_DEFAULT_REGION: us-east-1
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -33,15 +33,14 @@ jobs:
       - name: Package to S3
         run: |
           aws cloudformation package \
-            --template-file "$TEMPLATE_LOCATION/template.yaml"
-            --s3-bucket $DEPLOY_BUCKET
+            --template-file "$TEMPLATE_LOCATION/template.yaml" \
+            --s3-bucket $DEPLOY_BUCKET \
             --output-template-file "$TEMPLATE_LOCATION/packaged.yaml" \
             --region $AWS_DEFAULT_REGION
-
       - name: Deploy Template to S3
         run: |
           aws s3 sync \
-            "$TEMPLATE_LOCATION" s3://$DEPLOY_BUCKET/templatestorage/${GITHUB_SHA::8} \
+            "$TEMPLATE_LOCATION" s3://$DEPLOY_BUCKET/coursefiles/templatestorage/${GITHUB_SHA::8} \
             --exclude "*" \
             --include "packaged.yaml" \
             --region $AWS_DEFAULT_REGION
