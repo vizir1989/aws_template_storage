@@ -13,7 +13,7 @@ jobs:
       - name: Lint Template
         uses: ScottBrenner/cfn-lint-action@v2.2.7
         with:
-          args: "**/*.yaml"
+          command: cfn-lint -t ./template.yml
 
   upload-templates:
     needs: lint-templates
