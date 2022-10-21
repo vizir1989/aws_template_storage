@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Lint Template
+      - name: New Lint Template
         uses: ScottBrenner/cfn-lint-action@v2.2.7
         with:
           command: cfn-lint -t ./template.yaml
