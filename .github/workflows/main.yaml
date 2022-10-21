@@ -37,6 +37,7 @@ jobs:
             --s3-bucket $DEPLOY_BUCKET \
             --output-template-file "$TEMPLATE_LOCATION/packaged.yaml" \
             --region $AWS_DEFAULT_REGION
+            --profile vizir
       - name: Deploy Template to S3
         run: |
           aws s3 sync \
@@ -44,3 +45,4 @@ jobs:
             --exclude "*" \
             --include "packaged.yaml" \
             --region $AWS_DEFAULT_REGION
+            --profile vizir
