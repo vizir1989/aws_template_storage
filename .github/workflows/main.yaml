@@ -16,8 +16,8 @@ jobs:
           command: cfn-lint -t ./template.yaml
 
   upload-templates:
-    # needs: lint-templates
-    if: github.ref == 'refs/heads/master'
+    needs: lint-templates
+    if: github.ref == 'refs/heads/main'
     name: Upload Templates to S3
     runs-on: ubuntu-latest
     env:
